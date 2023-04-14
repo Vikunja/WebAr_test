@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Canvas сердечко з листочками</title>
+	<title>Canvas СЃРµСЂРґРµС‡РєРѕ Р· Р»РёСЃС‚РѕС‡РєР°РјРё</title>
 </head>
 <body>
 	<canvas id="myCanvas" width="300" height="300"></canvas>
@@ -32,9 +32,9 @@
 		}
 		
 		function drawLeaf(x, y, rotation) {
-			ctx.save(); // зберігаємо поточний стан контексту
-			ctx.translate(x, y); // переміщуємо початок координат у точку (x, y)
-			ctx.rotate(rotation); // обертаємо контекст на заданий кут
+			ctx.save(); // Р·Р±РµСЂС–РіР°С”РјРѕ РїРѕС‚РѕС‡РЅРёР№ СЃС‚Р°РЅ РєРѕРЅС‚РµРєСЃС‚Сѓ
+			ctx.translate(x, y); // РїРµСЂРµРјС–С‰СѓС”РјРѕ РїРѕС‡Р°С‚РѕРє РєРѕРѕСЂРґРёРЅР°С‚ Сѓ С‚РѕС‡РєСѓ (x, y)
+			ctx.rotate(rotation); // РѕР±РµСЂС‚Р°С”РјРѕ РєРѕРЅС‚РµРєСЃС‚ РЅР° Р·Р°РґР°РЅРёР№ РєСѓС‚
 			ctx.fillStyle = "#33cc33";
 			ctx.beginPath();
 			ctx.moveTo(0, 0);
@@ -42,13 +42,13 @@
 			ctx.bezierCurveTo(-15, -50, 15, -50, 15, -30);
 			ctx.bezierCurveTo(15, -20, 0, -20, 0, 0);
 			ctx.fill();
-			ctx.restore(); // відновлюємо збережений стан контексту
+			ctx.restore(); // РІС–РґРЅРѕРІР»СЋС”РјРѕ Р·Р±РµСЂРµР¶РµРЅРёР№ СЃС‚Р°РЅ РєРѕРЅС‚РµРєСЃС‚Сѓ
 		}
 		
 		function drawLeafLayer(x, y, rotation, size, layer) {
-			ctx.save(); // зберігаємо поточний стан контексту
-			ctx.translate(x, y); // переміщуємо початок координат у точку (x, y)
-			ctx.rotate(rotation * Math.PI / 180); // обертаємо контекст на заданий кут
+			ctx.save(); // Р·Р±РµСЂС–РіР°С”РјРѕ РїРѕС‚РѕС‡РЅРёР№ СЃС‚Р°РЅ РєРѕРЅС‚РµРєСЃС‚Сѓ
+			ctx.translate(x, y); // РїРµСЂРµРјС–С‰СѓС”РјРѕ РїРѕС‡Р°С‚РѕРє РєРѕРѕСЂРґРёРЅР°С‚ Сѓ С‚РѕС‡РєСѓ (x, y)
+			ctx.rotate(rotation * Math.PI / 180); // РѕР±РµСЂС‚Р°С”РјРѕ РєРѕРЅС‚РµРєСЃС‚ РЅР° Р·Р°РґР°РЅРёР№ РєСѓС‚
 			ctx.fillStyle = "#33cc33";
 			ctx.beginPath();
 			ctx.moveTo(0, 0);
@@ -56,14 +56,14 @@
 			ctx.bezierCurveTo(-size, -size * 5, size, -size * 5, size, -size * 3);
 			ctx.bezierCurveTo(size, -size * 2, 0, -size * 2, 0, 0);
 			ctx.fill();
-			ctx.restore(); // відновлюємо збережений стан контексту
+			ctx.restore(); // РІС–РґРЅРѕРІР»СЋС”РјРѕ Р·Р±РµСЂРµР¶РµРЅРёР№ СЃС‚Р°РЅ РєРѕРЅС‚РµРєСЃС‚Сѓ
 
-			// малюємо листочок на слої
+			// РјР°Р»СЋС”РјРѕ Р»РёСЃС‚РѕС‡РѕРє РЅР° СЃР»РѕС—
 			for (var i = 0; i < layer; i++) {
-				ctx.save(); // зберігаємо поточний стан контексту
-				ctx.translate(x + i * size / 2, y + i * size / 2); // переміщуємо початок координат на i-й слій
-				ctx.rotate(rotation+i); // обертаємо контекст на заданий кут
-				ctx.scale(1 - i * 0.2, 1 - i * 0.2); // зменшуємо розмір листочка на кожному наступному слої
+				ctx.save(); // Р·Р±РµСЂС–РіР°С”РјРѕ РїРѕС‚РѕС‡РЅРёР№ СЃС‚Р°РЅ РєРѕРЅС‚РµРєСЃС‚Сѓ
+				ctx.translate(x + i * size / 2, y + i * size / 2); // РїРµСЂРµРјС–С‰СѓС”РјРѕ РїРѕС‡Р°С‚РѕРє РєРѕРѕСЂРґРёРЅР°С‚ РЅР° i-Р№ СЃР»С–Р№
+				ctx.rotate(rotation+i); // РѕР±РµСЂС‚Р°С”РјРѕ РєРѕРЅС‚РµРєСЃС‚ РЅР° Р·Р°РґР°РЅРёР№ РєСѓС‚
+				ctx.scale(1 - i * 0.2, 1 - i * 0.2); // Р·РјРµРЅС€СѓС”РјРѕ СЂРѕР·РјС–СЂ Р»РёСЃС‚РѕС‡РєР° РЅР° РєРѕР¶РЅРѕРјСѓ РЅР°СЃС‚СѓРїРЅРѕРјСѓ СЃР»РѕС—
 				ctx.fillStyle = "#33cc33";
 				ctx.beginPath();
 				ctx.moveTo(0, 0);
@@ -71,7 +71,7 @@
 				ctx.bezierCurveTo(-size, -size * 5, size, -size * 5, size, -size * 3);
 				ctx.bezierCurveTo(size, -size * 2, 0, -size * 2, 0, 0);
 				ctx.fill();
-				ctx.restore(); // відновлюємо збережений стан контексту
+				ctx.restore(); // РІС–РґРЅРѕРІР»СЋС”РјРѕ Р·Р±РµСЂРµР¶РµРЅРёР№ СЃС‚Р°РЅ РєРѕРЅС‚РµРєСЃС‚Сѓ
 			}
 		}
 
@@ -86,7 +86,7 @@
 
 		function handleMouseUp(event) {
 			const elapsed = Date.now() - start;
-			const angle = Math.sin(elapsed / 500) * 20; // зміна кута повороту
+			const angle = Math.sin(elapsed / 500) * 20; // Р·РјС–РЅР° РєСѓС‚Р° РїРѕРІРѕСЂРѕС‚Сѓ
 			rotation += angle;
 		}
 		
@@ -100,10 +100,10 @@
 			var y = event.clientY - canvas.offsetTop;
 			drawLeafLayer(x, y, rotation, 10, 5);
 		});
-		// додаємо обробник події mousedown до canvas
+		// РґРѕРґР°С”РјРѕ РѕР±СЂРѕР±РЅРёРє РїРѕРґС–С— mousedown РґРѕ canvas
 		canvas.addEventListener('mousedown', handleMouseDown);
 		canvas.addEventListener('mouseup', handleMouseUp);
-		// малюємо листочки з різними параметрами обертання
+		// РјР°Р»СЋС”РјРѕ Р»РёСЃС‚РѕС‡РєРё Р· СЂС–Р·РЅРёРјРё РїР°СЂР°РјРµС‚СЂР°РјРё РѕР±РµСЂС‚Р°РЅРЅСЏ
 		/*drawLeaf(75, 50, 0.5);
 		drawLeaf(125, 75, 1);
 		drawLeaf(150, 125, 1.5);
