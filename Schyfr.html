@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Шифрування та дешифрування</title>
+</head>
+<body>
+  <h1>Шифрування та дешифрування</h1>
+  <input type="text" id="message" placeholder="Введіть повідомлення">
+  <input type="text" id="Secret" placeholder="Введіть секретне слово">
+  <button type="button" id="encrypt">Зашифрувати</button>
+  <button type="button" id="decrypt">Розшифрувати</button>
+  <p id="result"></p>
+
+  <script>
+    var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	var alphabetUkr = "АаБбВвГгДдЕеЄєЖжЗзИиІіЇїЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЬьЮюЯя ,.!?";
+    var secret = "";
+
+    document.getElementById("encrypt").addEventListener("click", function() {
+      secret = document.getElementById("Secret").value;
+      var message = document.getElementById("message").value;
+      var encrypted = "";
+      for (var i = 0; i < message.length; i++) {
+        encrypted += alphabetUkr[(alphabetUkr.indexOf(message[i]) + secret.length) % alphabetUkr.length];
+		console.log(message[i]+" ,"+encrypted);		
+      }
+      document.getElementById("result").innerHTML = encrypted;
+    });
+
+    document.getElementById("decrypt").addEventListener("click", function() {
+      secret = document.getElementById("Secret").value;
+      var message = document.getElementById("message").value;
+      var decrypted = "";
+      for (var i = 0; i < message.length; i++) {
+        decrypted += alphabetUkr[(alphabetUkr.indexOf(message[i]) - secret.length) % alphabetUkr.length];
+      }
+      document.getElementById("result").innerHTML = decrypted;
+    });
+  </script>
+</body>
+</html>
