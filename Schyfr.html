@@ -16,13 +16,23 @@
     var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	var alphabetUkr = "АаБбВвГгДдЕеЄєЖжЗзИиІіЇїЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЬьЮюЯя ,.!?";
     var secret = "";
+	
+	function secretSumF(sec) {
+		let secretSum = 0;
+		for (var i = 0; i < sec.length; i++) {
+			secretSum += Number(alphabetUkr.indexOf(sec[i]));	
+		  }
+		console.log(secretSum);	
+		return secretSum;
+	}
 
     document.getElementById("encrypt").addEventListener("click", function() {
       secret = document.getElementById("Secret").value;
       var message = document.getElementById("message").value;
       var encrypted = "";
+	  let secSum = secretSumF(secret);
       for (var i = 0; i < message.length; i++) {
-        encrypted += alphabetUkr[(alphabetUkr.indexOf(message[i]) + secret.length) % alphabetUkr.length];
+        encrypted += alphabetUkr[(alphabetUkr.indexOf(message[i]) + secSum) % alphabetUkr.length];
 		console.log(message[i]+" ,"+encrypted);		
       }
       document.getElementById("result").innerHTML = encrypted;
@@ -32,8 +42,9 @@
       secret = document.getElementById("Secret").value;
       var message = document.getElementById("message").value;
       var decrypted = "";
+	  let secSum = secretSumF(secret);
       for (var i = 0; i < message.length; i++) {
-        decrypted += alphabetUkr[(alphabetUkr.indexOf(message[i]) - secret.length) % alphabetUkr.length];
+        decrypted += alphabetUkr[(alphabetUkr.indexOf(message[i]) - secSum) % alphabetUkr.length];
       }
       document.getElementById("result").innerHTML = decrypted;
     });
