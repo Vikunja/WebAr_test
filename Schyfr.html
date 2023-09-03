@@ -16,6 +16,7 @@
     var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	var alphabetUkr = "АаБбВвГгДдЕеЄєЖжЗзИиІіЇїЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЬьЮюЯя ,.!?";
     var secret = "";
+	var secSum = "";
 	
 	function secretSumF(sec) {
 		let secretSum = 0;
@@ -30,10 +31,10 @@
       secret = document.getElementById("Secret").value;
       var message = document.getElementById("message").value;
       var encrypted = "";
-	  let secSum = secretSumF(secret);
+	  secSum = secretSumF(secret);
       for (var i = 0; i < message.length; i++) {
         encrypted += alphabetUkr[(alphabetUkr.indexOf(message[i]) + secSum) % alphabetUkr.length];
-		console.log(message[i]+" ,"+encrypted);		
+		console.log(message[i]+", "+encrypted);		
       }
       document.getElementById("result").innerHTML = encrypted;
     });
@@ -42,9 +43,10 @@
       secret = document.getElementById("Secret").value;
       var message = document.getElementById("message").value;
       var decrypted = "";
-	  let secSum = secretSumF(secret);
+	  secSum = secretSumF(secret);
       for (var i = 0; i < message.length; i++) {
         decrypted += alphabetUkr[(alphabetUkr.indexOf(message[i]) - secSum) % alphabetUkr.length];
+		console.log(message[i]+", "+decrypted);	
       }
       document.getElementById("result").innerHTML = decrypted;
     });
