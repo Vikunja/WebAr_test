@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Червона троянда</title>
+</head>
+<body>
+    <canvas id="roseCanvas" width="200" height="200" style="border:1px solid #000000;"></canvas>
+
+    <script>
+        function drawRose() {
+            const canvas = document.getElementById('roseCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Масив для створення троянди з різними відтінками
+            const rosePattern = [
+                [0, 0, 0, 2, 3, 0, 0, 0],
+                [0, 4, 3, 2, 2, 3, 4, 0],
+                [1, 4, 3, 2, 2, 3, 4, 1],
+                [1, 1, 4, 2, 2, 4, 1, 1],
+                [0, 1, 4, 2, 2, 4, 1, 0],
+                [0, 0, 4, 2, 2, 4, 0, 0],
+                [0, 0, 0, 4, 4, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0]
+            ];
+
+            // Розмір клітинки
+            const cellSize = 5;
+
+            // Відтінки червоного
+            const colors = {
+                1: '#ffcccc',
+                2: '#ff6666',
+                3: '#ff3333',
+                4: '#cc0000'
+            };
+
+            // Фарбування троянди
+            for (let y = 0; y < rosePattern.length; y++) {
+                for (let x = 0; x < rosePattern[y].length; x++) {
+                    if (rosePattern[y][x] !== 0) {
+                        ctx.fillStyle = colors[rosePattern[y][x]];
+                        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+        }
+
+        drawRose();
+    </script>
+</body>
+</html>
