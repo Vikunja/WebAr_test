@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Червона троянда</title>
+    <style>
+        #controls {
+            display: flex;
+            flex-direction: column;
+            margin-left: 20px;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex;">
+        <canvas id="roseCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
+        <div id="controls">
+            <h3>Обери колір:</h3>
+            <label><input type="radio" name="color" value="0"> Білий</label>
+            <label><input type="radio" name="color" value="1"> Світло-рожевий</label>
+            <label><input type="radio" name="color" value="2"> Середньо-рожевий</label>
+            <label><input type="radio" name="color" value="3"> Темно-рожевий</label>
+            <label><input type="radio" name="color" value="4"> Темно-червоний</label>
+            <label><input type="radio" name="color" value="5"> Зелений</label>
+            <br>
+            <label><input type="checkbox" id="editMode"> Режим редагування</label>
+            <button id="saveButton">Зберегти</button>
+            <button id="loadButton">Завантажити</button>
+        </div>
+    </div>
+
+    <script>
+        function drawRose(rosePattern, ctx, cellSize) {
+            const colors = {
+                0: '#ffffff', // Білий для очищення
+                1: '#ffcccc',
+                2: '#ff6666',
+                3: '#ff3333',
+                4: '#cc0000',
+                5: '#00cc00'  // Зелений для листя
+            };
+
+            for (let y = 0; y < rosePattern.length; y++) {
+                for (let x = 0; x < rosePattern[y].length; x++) {
+                    ctx.fillStyle = colors[rosePattern[y][x]];
+                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                }
+            }
+        }
+
+        const canvas = document.getElementById('roseCanvas');
+        const ctx = canvas.getContext('2d');
+        const cellSize = 10;
+        const gridWidth = canvas.width / cellSize;
+        const gridHeight = canvas.height / cellSize;
+
+        // Масив для створення троянди з різними відтінками і листочками
+        let rosePattern = Array.from({ length: gridHeight }, () => Array(gridWidth).fill(0));
+
+        // Початковий малюнок троянди
+        const initialPattern = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
+            [0, 0, 1, 2, 2, 2, 1, 0, 1, 2, 2, 2, 1, 0, 0, 0],
+            [0, 1, 2, 3, 3, 3, 2, 1, 2, 3, 3, 3, 2, 1, 0, 0],
+            [0, 1, 2, 3, 4, 4, 3, 2, 3, 4, 4, 3, 2, 1, 0, 0],
+            [0, 1, 2, 3, 4, 4, 3, 2, 3, 4, 4, 3, 2, 1, 0, 0],
+            [0, 0, 1, 2, 3, 3, 2, 1, 2, 3, 3, 2, 1, 0, 0, 0],
+            [0, 0, 0, 1, 2, 2, 1, 0, 1, 2, 2, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0],
+            [0, 5, 2, 2, 5, 5, 0, 0, 0, 0, 5, 5, 2, 2, 5, 0],
+            [0, 2, 3, 3, 2, 2, 5, 0, 0, 5, 2, 2, 3, 3, 2, 0],
+            [0, 0, 2, 2, 5, 5, 0, 0, 0, 0, 5, 5, 2, 2, 0, 0],
+            [0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ];
+
+        // Заповнюємо початковий малюнок у центрі grid
+        for (let y = 0; y < initialPattern.length; y++) {
+            for (let x = 0; x < initialPattern[y].length; x++) {
+                rosePattern[y + 2][x + 2] = initialPattern[y][x];
+            }
+        }
+
+        drawRose(rosePattern, ctx, cellSize);
+
+        let selectedColor = 1;
+        document.querySelectorAll('input[name="color"]').forEach((radio) => {
+            radio.addEventListener('change', (event) => {
+                selectedColor = parseInt(event.target.value);
+            });
+        });
+
+        let editMode = false;
+        document.getElementById('editMode').addEventListener('change', (event) => {
+            editMode = event.target.checked;
+        });
+
+        canvas.addEventListener('click', (event) => {
+            if (editMode) {
+                const rect = canvas.getBoundingClientRect();
+                const x = Math.floor((event.clientX - rect.left) / cellSize);
+                const y = Math.floor((event.clientY - rect.top) / cellSize);
+                if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
+                    rosePattern[y][x] = selectedColor;
+                    drawRose(rosePattern, ctx, cellSize);
+                }
+            }
+        });
+
+        document.getElementById('saveButton').addEventListener('click', () => {
+            localStorage.setItem('rosePattern', JSON.stringify(rosePattern));
+            alert('Малюнок збережено!');
+        });
+
+        document.getElementById('loadButton').addEventListener('click', () => {
+            const savedPattern = localStorage.getItem('rosePattern');
+            if (savedPattern) {
+                rosePattern = JSON.parse(savedPattern);
+                drawRose(rosePattern, ctx, cellSize);
+                alert('Малюнок завантажено!');
+            } else {
+                alert('Немає збереженого малюнку!');
+            }
+        });
+    </script>
+</body>
+</html>
