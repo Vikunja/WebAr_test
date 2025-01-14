@@ -36,17 +36,6 @@ class Viktoria {
 const viktoria = new Viktoria();
 
 // Створення нових вмінь
-const foundationSkill = new Skill(
-    "Applying Foundation",
-    "How to apply foundation evenly for a flawless look.",
-    [
-        "Clean your face and apply moisturizer.",
-        "Use a primer for smooth application.",
-        "Dab foundation onto your face using a makeup sponge or brush.",
-        "Blend evenly starting from the center outward."
-    ]
-);
-
 const contouringSkill = new Skill(
     "Contouring",
     "Enhancing facial structure using contour and highlight.",
@@ -58,8 +47,16 @@ const contouringSkill = new Skill(
 );
 
 // Add Victoria's skills
-console.log(viktoria.learnMakeupSkill(foundationSkill));
 console.log(viktoria.learnMakeupSkill(contouringSkill));
+
+console.log(viktoria.learnMakeupSkill(skincareSkill));
+console.log(viktoria.learnMakeupSkill(primerSkill));
+console.log(viktoria.learnMakeupSkill(foundationSkill));
+console.log(viktoria.learnMakeupSkill(concealerSkill));
+console.log(viktoria.learnMakeupSkill(browsSkill));
+console.log(viktoria.learnMakeupSkill(eyesSkill));
+console.log(viktoria.learnMakeupSkill(blushSkill));
+console.log(viktoria.learnMakeupSkill(lipsSkill));
 
 // List of all skills
 console.log(viktoria.listMakeupSkills());
