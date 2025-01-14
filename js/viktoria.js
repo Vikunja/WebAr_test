@@ -1,49 +1,65 @@
 class Viktoria {
     constructor() {
-        // Character traits
         this.name = "Viktoria";
-        this.age = 15;
-        this.characterTraits = ["kind", "intelligent", "ambitious"];
-        
-        // Appearance
+        this.age = 18;
+        this.characterTraits = ["femininity", "charm", "grace"];
         this.hairColor = "pinkchestnut";
         this.eyeColor = "brown";
         this.height = "5'4\"";
-        
-        // Makeup skills
         this.makeupSkills = [];
     }
 
-    // Method to describe Viktoria
     describe() {
         return `${this.name} is a ${this.age}-year-old woman with ${this.hairColor} hair and ${this.eyeColor} eyes. She is ${this.height} tall and is known for being ${this.characterTraits.join(", ")}.`;
     }
 
-    // Method to add a makeup skill
+    // A method for learning a new skill
     learnMakeupSkill(skill) {
-        this.makeupSkills.push(skill);
-        return `${this.name} has learned a new makeup skill: ${skill}.`;
+        if (skill instanceof Skill) {
+            this.makeupSkills.push(skill);
+            return `${this.name} has learned a new makeup skill: ${skill.name}.`;
+        } else {
+            return "Invalid skill. Please provide a valid Skill instance.";
+        }
     }
 
-    // Method to list all makeup skills
+    // Method for listing all skills
     listMakeupSkills() {
         if (this.makeupSkills.length === 0) {
             return `${this.name} has not learned any makeup skills yet.`;
         }
-        return `${this.name} knows the following makeup skills: ${this.makeupSkills.join(", ")}.`;
+        return this.makeupSkills.map(skill => skill.getDetails()).join("\n\n");
     }
 }
 
-// Create an instance of Viktoria
+// Example of use
 const viktoria = new Viktoria();
 
-// Describe Viktoria
-console.log(viktoria.describe());
+// Створення нових вмінь
+const foundationSkill = new Skill(
+    "Applying Foundation",
+    "How to apply foundation evenly for a flawless look.",
+    [
+        "Clean your face and apply moisturizer.",
+        "Use a primer for smooth application.",
+        "Dab foundation onto your face using a makeup sponge or brush.",
+        "Blend evenly starting from the center outward."
+    ]
+);
 
-// Teach Viktoria some makeup skills
-console.log(viktoria.learnMakeupSkill("applying foundation"));
-console.log(viktoria.learnMakeupSkill("contouring"));
-console.log(viktoria.learnMakeupSkill("eye shadow blending"));
+const contouringSkill = new Skill(
+    "Contouring",
+    "Enhancing facial structure using contour and highlight.",
+    [
+        "Apply contour below your cheekbones and jawline.",
+        "Add highlighter to the tops of your cheekbones and nose bridge.",
+        "Blend well to avoid harsh lines."
+    ]
+);
 
-// List all makeup skills
+// Add Victoria's skills
+console.log(viktoria.learnMakeupSkill(foundationSkill));
+console.log(viktoria.learnMakeupSkill(contouringSkill));
+
+// List of all skills
 console.log(viktoria.listMakeupSkills());
